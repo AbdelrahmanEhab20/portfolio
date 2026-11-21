@@ -36,6 +36,8 @@ export type Project = {
   features: string[];
   stack: string[];
   links: ProjectLink[];
+  // "Request a demo" button (WhatsApp, with an email fallback) instead of public demo links.
+  requestDemo?: { message: string; emailSubject: string };
   // Public pages the Playwright script may capture (npm run screenshots).
   // Plain URLs: first -> cover + m01, the rest -> 01, 02...  Objects: exact file name, theme and device.
   autoScreenshot?: (string | ScreenshotShot)[];
@@ -163,8 +165,11 @@ export const projects: Project[] = [
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "JWT", "SSE", "Azure"],
     links: [
       { label: "Platform (login required)", url: "https://www.insai.epsilonaiglobal.com/", kind: "live" },
-      { label: "Demo videos", url: "https://drive.google.com/drive/folders/17avN2zt5cgfWUsSXqzt8L8C7tK2bwQGl?usp=sharing", kind: "demo" },
     ],
+    requestDemo: {
+      message: "Hi Abdelrahman, I'd like a demo of the Epsilon AI platform",
+      emailSubject: "Epsilon AI platform demo",
+    },
     autoScreenshot: [
       { url: "https://insai.epsilonaiglobal.com/", file: "cover", theme: "dark" },
       { url: "https://insai.epsilonaiglobal.com/", file: "02", theme: "light" },

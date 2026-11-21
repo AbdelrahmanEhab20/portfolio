@@ -6,9 +6,10 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Lock, Play } from "lucide-react";
 import { Reveal } from "@/components/motion";
 import { ProjectCover } from "@/components/project-cover";
 import { Gallery } from "@/components/gallery";
-import { GithubIcon } from "@/components/icons";
+import { GithubIcon, WhatsappIcon } from "@/components/icons";
 import { ButtonA, Chip } from "@/components/ui";
 import { sortedProjects } from "@/lib/projects";
+import { profile } from "@/content/projects";
 import { getProjectImages } from "@/lib/images";
 
 export function generateStaticParams() {
@@ -29,6 +30,9 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
 }
 
 const isTodo = (s: string) => s.trim().startsWith("TODO");
+
+// encodeURIComponent leaves ' as-is; encode it too so the link is fully escaped.
+const enc = (s: string) => encodeURIComponent(s).replace(/'/g, "%27");
 
 // Every slug is prerendered; the Suspense shell only shows during client navigation.
 export default function ProjectPage({ params }: PageProps<"/projects/[slug]">) {
@@ -95,6 +99,19 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
               <ArrowUpRight size={15} />
             </ButtonA>
           ))}
+          {p.requestDemo && (
+            <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1">
+              <ButtonA href={`${profile.whatsapp}?text=${enc(p.requestDemo.message)}`} external variant="ghost">
+                <WhatsappIcon size={15} /> Request a demo
+              </ButtonA>
+              <a
+                href={`mailto:${profile.email}?subject=${enc(p.requestDemo.emailSubject)}&body=${enc(p.requestDemo.message)}`}
+                className="text-sm text-muted underline-offset-4 hover:text-fg hover:underline"
+              >
+                or email me
+              </a>
+            </span>
+          )}
         </div>
         {(p.private || p.loginRequired) && (
           <div className="hero-in" style={{ animationDelay: "0.20s" }}>
