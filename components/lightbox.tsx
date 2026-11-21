@@ -221,18 +221,22 @@ export function Lightbox({
 
 function Slide({ shot, phoneWidth, priority }: { shot: Shot; phoneWidth: number; priority?: boolean }) {
   if (shot.mobile) {
+    // The viewer is always dark, so pin the phone bezel to the dark-theme tokens
+    // (the [data-theme="dark"] block in globals.css re-scopes them to this subtree).
     return (
-      <PhoneFrame width={phoneWidth}>
-        <Image
-          src={shot.src}
-          alt={shot.alt}
-          fill
-          sizes={SIZES.mobile}
-          draggable={false}
-          {...(priority ? { loading: "eager" as const } : {})}
-          className="object-cover object-top"
-        />
-      </PhoneFrame>
+      <div data-theme="dark" className="contents">
+        <PhoneFrame width={phoneWidth}>
+          <Image
+            src={shot.src}
+            alt={shot.alt}
+            fill
+            sizes={SIZES.mobile}
+            draggable={false}
+            {...(priority ? { loading: "eager" as const } : {})}
+            className="object-cover object-top"
+          />
+        </PhoneFrame>
+      </div>
     );
   }
   return (
