@@ -52,7 +52,7 @@ async function Studio({ params }: { params: Promise<{ slug: string }> }) {
             className="absolute opacity-90"
             style={{ left: 360 - W / 2 + 95, top: 78, transform: "rotate(5deg)" }}
           >
-            <Image src={back} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" priority />
+            <Image src={back} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" loading="eager" />
           </PhoneFrame>
         )}
         <PhoneFrame
@@ -60,7 +60,7 @@ async function Studio({ params }: { params: Promise<{ slug: string }> }) {
           className="absolute shadow-[0_40px_80px_-20px_rgb(0_0_0/0.6)]"
           style={{ left: 360 - W / 2 - (back ? 70 : 0), top: 48 }}
         >
-          <Image src={main} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" priority />
+          <Image src={main} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" loading="eager" />
         </PhoneFrame>
       </div>
     </div>

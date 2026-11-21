@@ -18,8 +18,13 @@ export const metadata: Metadata = {
   },
   description: profile.headline,
   alternates: { canonical: "/" },
+  authors: [{ name: profile.name, url: profile.linkedin }],
+  creator: profile.name,
+  keywords: ["Full Stack Developer", "Next.js", "React", "TypeScript", "Node.js", "Flutter", "Cairo", "Freelance"],
   openGraph: {
     type: "website",
+    url: "/",
+    locale: "en_US",
     siteName: profile.shortName,
     title: `${profile.shortName} — ${profile.title}`,
     description: profile.headline,

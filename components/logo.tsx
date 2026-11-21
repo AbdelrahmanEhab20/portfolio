@@ -8,7 +8,7 @@ export function LogoMark({ size = 32, className = "" }: { size?: number; classNa
       width={size}
       height={size}
       className={`rounded-[25%] ${className}`}
-      priority
+      loading="eager"
     />
   );
 }

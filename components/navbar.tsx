@@ -51,7 +51,7 @@ export function Navbar() {
       }`}
     >
       <nav className="container-page flex h-16 items-center justify-between gap-4" aria-label="Main">
-        <Link href="/" className="flex items-center gap-2.5 font-semibold tracking-tight" onClick={() => setOpen(false)}>
+        <Link href="/" aria-label={`${profile.shortName} — home`} className="flex items-center gap-2.5 font-semibold tracking-tight" onClick={() => setOpen(false)}>
           <LogoMark size={30} />
           <span className="hidden sm:inline">{profile.shortName}</span>
         </Link>

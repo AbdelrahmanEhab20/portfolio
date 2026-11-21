@@ -3,7 +3,6 @@
 import { ArrowRight, Download, Mail } from "lucide-react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "motion/react";
 import type { PointerEvent } from "react";
-import { Stagger, StaggerItem } from "../motion";
 import { ButtonA, ButtonLink } from "../ui";
 import { GithubIcon, LinkedinIcon } from "../icons";
 import { profile } from "@/content/projects";
@@ -37,18 +36,17 @@ export function Hero() {
     >
       {/* background layers */}
       <div aria-hidden className="hero-grid absolute inset-0 -z-10" />
-      <div aria-hidden className="noise pointer-events-none absolute inset-0 -z-10" />
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/20 blur-[120px]"
+        className="pointer-events-none absolute -top-60 left-1/2 -z-10 h-[640px] w-[1000px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(59_130_246/0.22),transparent)] will-change-transform"
         animate={{ scale: [1, 1.08, 1], opacity: [0.7, 1, 0.7] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden md:block" style={{ background: spotlight }} />
 
-      <Stagger onMount stagger={0.08} delay={0.05} className="container-page">
+      <div className="container-page">
         {profile.availableForFreelance && (
-          <StaggerItem>
+          <div className="hero-in" style={{ animationDelay: "0.05s" }}>
             <a
               href="#contact"
               className="mb-7 inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1.5 text-xs text-muted backdrop-blur transition-colors hover:border-line-strong hover:text-fg"
@@ -59,27 +57,27 @@ export function Hero() {
               </span>
               Available for freelance work
             </a>
-          </StaggerItem>
+          </div>
         )}
 
-        <StaggerItem>
+        <div className="hero-in" style={{ animationDelay: "0.13s" }}>
           <p className="mb-3 font-mono text-sm text-accent-text">Hi, I&apos;m</p>
-        </StaggerItem>
-        <StaggerItem>
+        </div>
+        <div className="hero-in" style={{ animationDelay: "0.21s" }}>
           <h1 className="text-balance-tight text-5xl font-semibold leading-[1.02] sm:text-7xl">
             {profile.shortName}
           </h1>
-        </StaggerItem>
-        <StaggerItem>
+        </div>
+        <div className="hero-in" style={{ animationDelay: "0.29s" }}>
           <p className="text-balance-tight mt-3 bg-gradient-to-r from-fg to-muted bg-clip-text text-3xl font-medium text-transparent sm:text-5xl">
             {profile.title}
           </p>
-        </StaggerItem>
-        <StaggerItem>
+        </div>
+        <div className="hero-in" style={{ animationDelay: "0.37s" }}>
           <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted">{profile.headline}</p>
-        </StaggerItem>
+        </div>
 
-        <StaggerItem className="mt-9 flex flex-wrap items-center gap-3">
+        <div className="hero-in mt-9 flex flex-wrap items-center gap-3" style={{ animationDelay: "0.45s" }}>
           <ButtonLink href="/#projects">
             View projects <ArrowRight size={16} />
           </ButtonLink>
@@ -99,14 +97,14 @@ export function Hero() {
               </a>
             ))}
           </div>
-        </StaggerItem>
+        </div>
 
-        <StaggerItem className="mt-14 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-muted">
+        <div className="hero-in mt-14 flex flex-wrap gap-x-8 gap-y-2 font-mono text-xs text-muted" style={{ animationDelay: "0.53s" }}>
           <span>{profile.location}</span>
           <span>4+ years experience</span>
           <span>Web · Mobile · Backend</span>
-        </StaggerItem>
-      </Stagger>
+        </div>
+      </div>
     </section>
   );
 }

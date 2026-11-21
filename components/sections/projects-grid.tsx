@@ -44,7 +44,8 @@ export function ProjectsGrid({ projects }: { projects: CardProject[] }) {
         })}
       </div>
 
-      <motion.ul id="projects-panel" role="tabpanel" layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div id="projects-panel" role="tabpanel" aria-label={`${filter} projects`}>
+      <motion.ul layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout" initial={false}>
           {shown.map((p) => (
             <motion.li
@@ -60,6 +61,7 @@ export function ProjectsGrid({ projects }: { projects: CardProject[] }) {
           ))}
         </AnimatePresence>
       </motion.ul>
+      </div>
     </div>
   );
 }

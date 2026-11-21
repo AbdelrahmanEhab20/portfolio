@@ -44,7 +44,7 @@ export function ProjectCover({
           alt={`${title} screenshot`}
           fill
           sizes={sizes}
-          priority={priority}
+          {...(priority ? { loading: "eager" as const, fetchPriority: "high" as const } : {})}
           className={`object-cover object-top ${className}`}
         />
       </>

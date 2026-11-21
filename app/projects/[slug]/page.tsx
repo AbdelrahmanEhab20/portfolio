@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Lock, Play } from "lucide-react";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { Reveal } from "@/components/motion";
 import { ProjectCover } from "@/components/project-cover";
 import { Gallery } from "@/components/gallery";
 import { GithubIcon } from "@/components/icons";
@@ -23,7 +23,8 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
     title: p.title,
     description: p.tagline,
     alternates: { canonical: `/projects/${p.slug}` },
-    openGraph: { title: p.title, description: p.tagline, type: "article" },
+    openGraph: { title: p.title, description: p.tagline, type: "article", url: `/projects/${p.slug}` },
+    twitter: { card: "summary_large_image", title: p.title, description: p.tagline },
   };
 }
 
@@ -62,20 +63,20 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
 
   return (
     <article className="container-page pb-24 pt-28 sm:pt-32">
-      <Stagger onMount stagger={0.06}>
-        <StaggerItem>
+      <div>
+        <div className="hero-in" style={{ animationDelay: "0.00s" }}>
           <Link href="/#projects" className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg">
             <ArrowLeft size={15} /> All projects
           </Link>
-        </StaggerItem>
-        <StaggerItem>
+        </div>
+        <div className="hero-in" style={{ animationDelay: "0.04s" }}>
           <h1 className="text-balance-tight mt-6 text-4xl font-semibold sm:text-6xl">{p.title}</h1>
-        </StaggerItem>
-        <StaggerItem>
+        </div>
+        <div className="hero-in" style={{ animationDelay: "0.08s" }}>
           <p className="mt-4 max-w-2xl text-pretty text-lg text-muted">{p.tagline}</p>
-        </StaggerItem>
+        </div>
 
-        <StaggerItem>
+        <div className="hero-in" style={{ animationDelay: "0.12s" }}>
           <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-y border-line py-5 sm:flex sm:flex-wrap sm:gap-x-10">
             {meta.map((m) => (
               <div key={m.k}>
@@ -84,9 +85,9 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
               </div>
             ))}
           </dl>
-        </StaggerItem>
+        </div>
 
-        <StaggerItem className="mt-6 flex flex-wrap gap-2.5">
+        <div className="hero-in mt-6 flex flex-wrap gap-2.5" style={{ animationDelay: "0.16s" }}>
           {p.links.map((l, idx) => (
             <ButtonA key={l.url} href={l.url} external variant={idx === 0 ? "primary" : "ghost"}>
               {l.kind === "demo" ? <Play size={15} /> : l.kind === "github" ? <GithubIcon size={15} /> : null}
@@ -94,21 +95,21 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
               <ArrowUpRight size={15} />
             </ButtonA>
           ))}
-        </StaggerItem>
+        </div>
         {p.private && (
-          <StaggerItem>
+          <div className="hero-in" style={{ animationDelay: "0.20s" }}>
             <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm text-muted">
               <Lock size={14} /> Private platform — demo available on request
             </p>
-          </StaggerItem>
+          </div>
         )}
 
-        <StaggerItem>
+        <div className="hero-in" style={{ animationDelay: "0.24s" }}>
           <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_40px_120px_-50px_var(--glow)]">
             <ProjectCover title={p.title} type={p.type} src={img.cover} sizes="(min-width: 1152px) 1120px, 100vw" priority />
           </div>
-        </StaggerItem>
-      </Stagger>
+        </div>
+      </div>
 
       <div className="mt-16 grid gap-14 lg:grid-cols-[1fr_300px]">
         <div className="space-y-14">

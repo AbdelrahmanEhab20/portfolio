@@ -27,7 +27,7 @@ export function Contact() {
     <section id="contact" aria-labelledby="contact-title" className="container-page py-15 sm:py-21">
       <Reveal className="relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-14 text-center sm:px-12 sm:py-20">
         <div aria-hidden className="hero-grid absolute inset-0" />
-        <div aria-hidden className="absolute -bottom-40 left-1/2 h-80 w-[640px] -translate-x-1/2 rounded-full bg-accent/25 blur-[110px]" />
+        <div aria-hidden className="absolute -bottom-40 left-1/2 h-96 w-[760px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(59_130_246/0.28),transparent)]" />
         <div className="relative">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-accent-text">{"// contact"}</p>
           <h2 id="contact-title" className="text-balance-tight text-4xl font-semibold sm:text-6xl">
