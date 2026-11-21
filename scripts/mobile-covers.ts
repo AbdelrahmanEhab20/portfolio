@@ -45,13 +45,19 @@ async function main() {
         continue;
       }
       await page.goto(`${base}/cover-studio/${p.slug}`, { waitUntil: "networkidle" });
-      await page.addStyleTag({ content: "header, footer, nextjs-portal { display: none !important }" });
+      // Hide site chrome and drop page backgrounds (incl. the theme fade) so only phones + shadow remain.
+      await page.addStyleTag({
+        content:
+          "header, footer, nextjs-portal { display: none !important }" +
+          "html, body, main, main > div { background: transparent !important; transition: none !important }",
+      });
       await page.waitForFunction(() =>
         Array.from(document.querySelectorAll<HTMLImageElement>("#cover img")).every((i) => i.complete && i.naturalWidth > 0),
       );
       await page.waitForTimeout(600); // let the route fade-in finish
-      const png = await page.locator("#cover").screenshot({ type: "png" });
-      await sharp(png).webp({ quality: 85 }).toFile(dest);
+      const png = await page.locator("#cover").screenshot({ type: "png", omitBackground: true });
+      // Keep the alpha channel: the card's CSS backdrop shows through around the phones.
+      await sharp(png).webp({ quality: 85, alphaQuality: 100 }).toFile(dest);
       console.log(`saved ${dest}`);
     }
   } finally {

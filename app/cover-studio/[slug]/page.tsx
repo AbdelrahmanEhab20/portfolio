@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { CardBackdrop } from "@/components/project-cover";
 import { PhoneFrame } from "@/components/phone-frame";
 import { projects } from "@/content/projects";
 import { getProjectImages } from "@/lib/images";
 
 /**
- * Dev-only page that lays out a project's mobile shots as a 16:10 cover.
+ * Dev-only page that lays out a project's mobile shots as a 16:10 cover on a
+ * transparent background (phones + shadow only); the card's CSS backdrop shows behind it.
  * `npm run covers` screenshots it into public/projects/<slug>/cover.webp.
  * Returns 404 in production builds.
  */
@@ -44,26 +44,24 @@ async function Studio({ params }: { params: Promise<{ slug: string }> }) {
   const W = 230; // phone width in the 720x450 canvas
 
   return (
-    <div className="grid min-h-dvh place-items-center bg-black">
+    <div className="grid min-h-dvh place-items-center">
       <div id="cover" className="relative h-[450px] w-[720px] overflow-hidden" data-theme="dark">
-        <CardBackdrop>
-          {back && (
-            <PhoneFrame
-              width={W}
-              className="absolute opacity-90"
-              style={{ left: 360 - W / 2 + 95, top: 78, transform: "rotate(5deg)" }}
-            >
-              <Image src={back} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" priority />
-            </PhoneFrame>
-          )}
+        {back && (
           <PhoneFrame
             width={W}
-            className="absolute shadow-[0_40px_80px_-20px_rgb(0_0_0/0.6)]"
-            style={{ left: 360 - W / 2 - (back ? 70 : 0), top: 48 }}
+            className="absolute opacity-90"
+            style={{ left: 360 - W / 2 + 95, top: 78, transform: "rotate(5deg)" }}
           >
-            <Image src={main} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" priority />
+            <Image src={back} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" priority />
           </PhoneFrame>
-        </CardBackdrop>
+        )}
+        <PhoneFrame
+          width={W}
+          className="absolute shadow-[0_40px_80px_-20px_rgb(0_0_0/0.6)]"
+          style={{ left: 360 - W / 2 - (back ? 70 : 0), top: 48 }}
+        >
+          <Image src={main} alt="" fill sizes={`${W * 2}px`} className="object-cover object-top" priority />
+        </PhoneFrame>
       </div>
     </div>
   );

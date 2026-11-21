@@ -16,7 +16,10 @@ export function CardBackdrop({ children, className = "" }: { children?: ReactNod
   );
 }
 
-/** Cover screenshot, or a placeholder with the project's title and type. */
+/**
+ * Cover image over the card backdrop (transparent covers, e.g. generated phone covers,
+ * let the theme-aware backdrop show through), or a placeholder with title and type.
+ */
 export function ProjectCover({
   title,
   type,
@@ -34,14 +37,17 @@ export function ProjectCover({
 }) {
   if (src) {
     return (
-      <Image
-        src={src}
-        alt={`${title} screenshot`}
-        fill
-        sizes={sizes}
-        priority={priority}
-        className={`object-cover object-top ${className}`}
-      />
+      <>
+        <CardBackdrop className={className} />
+        <Image
+          src={src}
+          alt={`${title} screenshot`}
+          fill
+          sizes={sizes}
+          priority={priority}
+          className={`object-cover object-top ${className}`}
+        />
+      </>
     );
   }
   return (
