@@ -24,7 +24,7 @@ export function Contact() {
   ];
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="container-page py-20 sm:py-28">
+    <section id="contact" aria-labelledby="contact-title" className="container-page py-15 sm:py-21">
       <Reveal className="relative overflow-hidden rounded-3xl border border-line bg-surface px-6 py-14 text-center sm:px-12 sm:py-20">
         <div aria-hidden className="hero-grid absolute inset-0" />
         <div aria-hidden className="absolute -bottom-40 left-1/2 h-80 w-[640px] -translate-x-1/2 rounded-full bg-accent/25 blur-[110px]" />

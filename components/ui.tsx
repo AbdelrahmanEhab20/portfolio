@@ -18,8 +18,8 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} className={`container-page py-20 sm:py-28 ${className}`} aria-labelledby={`${id}-title`}>
-      <Reveal className="mb-10 max-w-2xl sm:mb-14">
+    <section id={id} className={`container-page py-15 sm:py-21 ${className}`} aria-labelledby={`${id}-title`}>
+      <Reveal className="mb-8 max-w-2xl sm:mb-10">
         <p className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-accent-text">{`// ${eyebrow}`}</p>
         <h2 id={`${id}-title`} className="text-balance-tight text-3xl font-semibold sm:text-4xl">
           {title}

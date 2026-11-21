@@ -87,9 +87,9 @@ export function Services() {
 export function Skills() {
   return (
     <Section id="skills" eyebrow="skills" title="Tools I work with every day." className="!pt-0">
-      <Stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <Stagger className="gap-4 md:columns-2 lg:columns-3">
         {Object.entries(skills).map(([group, items]) => (
-          <StaggerItem key={group} className="rounded-2xl border border-line bg-surface p-6">
+          <StaggerItem key={group} className="mb-4 break-inside-avoid rounded-2xl border border-line bg-surface p-6">
             <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.14em] text-muted">{group}</h3>
             <div className="flex flex-wrap gap-2">
               {items.map((s) => (

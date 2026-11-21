@@ -32,7 +32,7 @@ export function Hero() {
   return (
     <section
       onPointerMove={onMove}
-      className="relative isolate overflow-hidden pb-20 pt-36 sm:pb-28 sm:pt-44"
+      className="relative isolate overflow-hidden pb-15 pt-32 sm:pb-21 sm:pt-40"
       aria-label="Introduction"
     >
       {/* background layers */}

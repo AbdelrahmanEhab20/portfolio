@@ -12,6 +12,7 @@ export function toCard(p: (typeof projects)[number]): CardProject {
     title: p.title,
     tagline: p.tagline,
     year: p.year,
+    type: p.type,
     stack: p.stack,
     links: p.links,
     private: p.private,

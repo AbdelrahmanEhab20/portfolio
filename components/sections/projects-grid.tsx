@@ -16,6 +16,7 @@ export function ProjectsGrid({ projects }: { projects: CardProject[] }) {
       <div role="tablist" aria-label="Filter projects" className="mb-8 flex flex-wrap gap-1.5">
         {filters.map((f) => {
           const count = f === "All" ? projects.length : projects.filter((p) => p.categories.includes(f)).length;
+          if (count === 0) return null;
           const selected = f === filter;
           return (
             <button

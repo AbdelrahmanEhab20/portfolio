@@ -11,7 +11,7 @@ import type { Project } from "@/content/projects";
 
 export type CardProject = Pick<
   Project,
-  "slug" | "title" | "tagline" | "year" | "stack" | "links" | "private" | "status" | "categories"
+  "slug" | "title" | "tagline" | "year" | "type" | "stack" | "links" | "private" | "status" | "categories"
 > & { cover: string | null };
 
 const linkIcon = {
@@ -53,7 +53,7 @@ export function ProjectCard({ project, large = false }: { project: CardProject; 
           <ProjectCover
             title={project.title}
             src={project.cover}
-            tags={project.stack}
+            type={project.type}
             sizes={large ? "(min-width: 1024px) 560px, 100vw" : "(min-width: 1024px) 370px, (min-width: 640px) 50vw, 100vw"}
             className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { PhoneFrame } from "./phone-frame";
 
 type Shot = { src: string; mobile: boolean };
 
@@ -123,16 +124,5 @@ export function Gallery({ title, desktop, mobile }: { title: string; desktop: st
         )}
       </AnimatePresence>
     </>
-  );
-}
-
-export function PhoneFrame({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="relative w-[180px] rounded-[2.2rem] border border-line-strong bg-surface-2 p-2 shadow-[0_30px_60px_-30px_var(--glow)] transition-transform duration-300 group-hover:-translate-y-1 sm:w-[200px]">
-      <div className="relative aspect-[9/19.5] overflow-hidden rounded-[1.7rem] bg-bg">
-        {children}
-        <span aria-hidden className="absolute left-1/2 top-2 h-4 w-16 -translate-x-1/2 rounded-full bg-black" />
-      </div>
-    </div>
   );
 }

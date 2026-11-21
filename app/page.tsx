@@ -13,7 +13,7 @@ import { siteUrl } from "@/lib/site";
 
 export default function Home() {
   const featured = sortedProjects.filter((p) => p.featured).map(toCard);
-  const all = sortedProjects.map(toCard);
+  const more = sortedProjects.filter((p) => !p.featured).map(toCard);
 
   const personLd = {
     "@context": "https://schema.org",
@@ -53,11 +53,11 @@ export default function Home() {
           ))}
         </Stagger>
 
-        <Reveal className="mb-6 mt-20">
-          <h3 className="text-balance-tight text-2xl font-semibold">All projects</h3>
+        <Reveal className="mb-6 mt-16">
+          <h3 className="text-balance-tight text-2xl font-semibold">More projects</h3>
         </Reveal>
         <Reveal>
-          <ProjectsGrid projects={all} />
+          <ProjectsGrid projects={more} />
         </Reveal>
       </Section>
 

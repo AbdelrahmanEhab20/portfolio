@@ -105,7 +105,7 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
 
         <StaggerItem>
           <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_40px_120px_-50px_var(--glow)]">
-            <ProjectCover title={p.title} src={img.cover} tags={stack} sizes="(min-width: 1152px) 1120px, 100vw" priority />
+            <ProjectCover title={p.title} type={p.type} src={img.cover} sizes="(min-width: 1152px) 1120px, 100vw" priority />
           </div>
         </StaggerItem>
       </Stagger>
