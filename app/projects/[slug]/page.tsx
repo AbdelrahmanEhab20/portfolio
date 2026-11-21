@@ -96,10 +96,13 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
             </ButtonA>
           ))}
         </div>
-        {p.private && (
+        {(p.private || p.loginRequired) && (
           <div className="hero-in" style={{ animationDelay: "0.20s" }}>
             <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm text-muted">
-              <Lock size={14} /> Private platform — demo available on request
+              <Lock size={14} className="shrink-0" />
+              {p.private
+                ? "Private platform — demo available on request"
+                : "The landing page is public; the platform itself requires a login — demo available on request"}
             </p>
           </div>
         )}

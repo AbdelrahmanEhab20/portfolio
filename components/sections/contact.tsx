@@ -14,13 +14,13 @@ export function Contact() {
       await navigator.clipboard.writeText(profile.email);
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
-    } catch {}
+    } catch { }
   };
 
   const channels = [
     { href: profile.linkedin, label: "LinkedIn", icon: <LinkedinIcon size={18} /> },
     { href: profile.github, label: "GitHub", icon: <GithubIcon size={18} /> },
-    { href: profile.whatsapp, label: `WhatsApp · ${profile.phone}`, icon: <WhatsappIcon size={18} /> },
+    { href: profile.whatsapp, label: `WhatsApp  ${profile.phone}`, icon: <WhatsappIcon size={18} /> },
   ];
 
   return (

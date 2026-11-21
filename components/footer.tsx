@@ -20,7 +20,6 @@ export async function Footer() {
           </span>
         </div>
         <div className="flex items-center gap-4">
-          <span className="font-mono text-xs">Built with Next.js</span>
           <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="hover:text-fg">
             <GithubIcon size={16} />
           </a>

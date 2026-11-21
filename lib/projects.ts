@@ -16,6 +16,7 @@ export function toCard(p: (typeof projects)[number]): CardProject {
     stack: p.stack,
     links: p.links,
     private: p.private,
+    loginRequired: p.loginRequired,
     status: p.status,
     categories: p.categories,
     cover: getProjectImages(p.slug).cover,

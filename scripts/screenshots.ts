@@ -8,13 +8,15 @@
  * For each project with `autoScreenshot` URLs:
  *   URL 1 -> cover.webp (1440x900 @2x) and m01.webp (390x844 @3x)
  *   URL 2 -> 01.webp, URL 3 -> 02.webp, ...
+ * Object entries ({ url, file, theme?, mobile? }) capture exactly that file instead,
+ * e.g. cover in dark theme and 02 in light theme.
  * Existing files are never overwritten without --force, so manual screenshots are safe.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { chromium, type Browser, type Page } from "playwright";
 import sharp from "sharp";
-import { projects } from "../content/projects";
+import { projects, type ScreenshotShot } from "../content/projects";
 
 const args = process.argv.slice(2);
 const force = args.includes("--force");
@@ -57,6 +59,7 @@ async function capture(
   url: string,
   dest: string,
   device: { width: number; height: number; scale: number; mobile?: boolean },
+  colorScheme?: "dark" | "light",
 ) {
   if (fs.existsSync(dest) && !force) {
     console.log(`  skip  ${path.relative(process.cwd(), dest)} (exists)`);
@@ -69,6 +72,7 @@ async function capture(
     hasTouch: device.mobile ?? false,
     reducedMotion: "reduce",
     locale: "en-US",
+    ...(colorScheme ? { colorScheme } : {}),
   });
   const page = await ctx.newPage();
   try {
@@ -103,6 +107,9 @@ async function capture(
   }
 }
 
+const desktop = { width: 1440, height: 900, scale: 2 };
+const mobile = { width: 390, height: 844, scale: 3, mobile: true };
+
 async function main() {
   const targets = projects.filter(
     (p) => p.autoScreenshot?.length && (only.length === 0 || only.includes(p.slug)),
@@ -115,12 +122,21 @@ async function main() {
       console.log(`\n${p.slug}`);
       const dir = path.join(outRoot, p.slug);
       fs.mkdirSync(dir, { recursive: true });
-      const urls = p.autoScreenshot!;
+      const entries = p.autoScreenshot!;
+      const shots = entries.filter((e): e is ScreenshotShot => typeof e !== "string");
+      if (shots.length > 0) {
+        for (const s of shots) {
+          const device = s.mobile ? mobile : desktop;
+          await capture(browser, s.url, path.join(dir, `${s.file}.webp`), device, s.theme);
+        }
+        continue;
+      }
+      const urls = entries as string[];
       for (const [i, url] of urls.entries()) {
         const name = i === 0 ? "cover" : String(i).padStart(2, "0");
-        await capture(browser, url, path.join(dir, `${name}.webp`), { width: 1440, height: 900, scale: 2 });
+        await capture(browser, url, path.join(dir, `${name}.webp`), desktop);
       }
-      await capture(browser, urls[0]!, path.join(dir, "m01.webp"), { width: 390, height: 844, scale: 3, mobile: true });
+      await capture(browser, urls[0]!, path.join(dir, "m01.webp"), mobile);
     }
   } finally {
     await browser.close();

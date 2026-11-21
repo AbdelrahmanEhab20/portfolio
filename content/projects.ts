@@ -10,6 +10,13 @@ export type ProjectLink = {
   kind: "live" | "demo" | "github" | "other";
 };
 
+export type ScreenshotShot = {
+  url: string;
+  file: string; // "cover", "02", "m01" ... (saved as .webp)
+  theme?: "dark" | "light"; // emulated prefers-color-scheme
+  mobile?: boolean; // 390x844 phone instead of 1440x900 desktop
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -21,6 +28,7 @@ export type Project = {
   company?: string;
   status: "Live" | "Private" | "Beta" | "Archived" | "Completed";
   private?: boolean;
+  loginRequired?: boolean; // public landing page, app behind a login
   featured?: boolean;
   categories: Category[];
   overview: string;
@@ -28,7 +36,9 @@ export type Project = {
   features: string[];
   stack: string[];
   links: ProjectLink[];
-  autoScreenshot?: string[]; // public URLs the Playwright script may capture
+  // Public pages the Playwright script may capture (npm run screenshots).
+  // Plain URLs: first -> cover + m01, the rest -> 01, 02...  Objects: exact file name, theme and device.
+  autoScreenshot?: (string | ScreenshotShot)[];
   mobile?: boolean; // show mobile screenshots in a phone frame
 };
 
@@ -39,7 +49,7 @@ export const profile = {
   location: "Cairo, Egypt",
   availableForFreelance: true,
   email: "abdelrahmanehab3232@gmail.com",
-  phone: "+20 111 668 5662",
+  phone: "",
   whatsapp: "https://wa.me/201116685662",
   linkedin: "https://www.linkedin.com/in/abdelrahman-ehab-71b38615a",
   github: "https://github.com/AbdelrahmanEhab20",
@@ -127,12 +137,12 @@ export const projects: Project[] = [
     role: "Frontend Developer",
     type: "Enterprise AI platform",
     company: "Epsilon AI Analytics",
-    status: "Private",
-    private: true,
+    status: "Live",
+    loginRequired: true,
     featured: true,
     categories: ["AI", "SaaS", "Web"],
     overview:
-      "An enterprise retrieval-augmented generation platform where teams chat with their own documents. I built the production frontend: authentication, role-based access, streaming AI chat and a full admin panel.",
+      "Epsilon AI Analytics offers three enterprise AI products in one platform: RAG.INS (chat with your documents and get sourced answers), VOICE.INS (voice queries and spoken AI answers in every language and dialect) and Construct INS (multiple assistants in one workspace, as tabs). I built the production frontend.",
     whatIDid: [
       "Built the full Next.js + TypeScript frontend from scratch to production.",
       "Implemented real-time chat with Server-Sent Events (SSE) streaming responses.",
@@ -145,12 +155,20 @@ export const projects: Project[] = [
       "Streaming AI chat over company documents",
       "Admin panel: channels, users, document ingestion, reports",
       "Role-based access control",
-      "Arabic and English (RTL/LTR)",
+      "Product selection landing page",
+      "English and Arabic with full RTL",
+      "Adjustable text size",
+      "Light and dark theme",
     ],
     stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "JWT", "SSE", "Azure"],
     links: [
       { label: "Platform (login required)", url: "https://www.insai.epsilonaiglobal.com/", kind: "live" },
       { label: "Demo videos", url: "https://drive.google.com/drive/folders/17avN2zt5cgfWUsSXqzt8L8C7tK2bwQGl?usp=sharing", kind: "demo" },
+    ],
+    autoScreenshot: [
+      { url: "https://insai.epsilonaiglobal.com/", file: "cover", theme: "dark" },
+      { url: "https://insai.epsilonaiglobal.com/", file: "02", theme: "light" },
+      { url: "https://insai.epsilonaiglobal.com/", file: "m01", mobile: true },
     ],
   },
   {

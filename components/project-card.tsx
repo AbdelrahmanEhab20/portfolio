@@ -11,7 +11,7 @@ import type { Project } from "@/content/projects";
 
 export type CardProject = Pick<
   Project,
-  "slug" | "title" | "tagline" | "year" | "type" | "stack" | "links" | "private" | "status" | "categories"
+  "slug" | "title" | "tagline" | "year" | "type" | "stack" | "links" | "private" | "loginRequired" | "status" | "categories"
 > & { cover: string | null };
 
 const linkIcon = {
@@ -57,9 +57,9 @@ export function ProjectCard({ project, large = false }: { project: CardProject; 
             sizes={large ? "(min-width: 1024px) 560px, 100vw" : "(min-width: 1024px) 370px, (min-width: 640px) 50vw, 100vw"}
             className="transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           />
-          {project.private && (
+          {(project.private || project.loginRequired) && (
             <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full border border-white/15 bg-black/55 px-2 py-1 text-[11px] text-white backdrop-blur">
-              <Lock size={11} /> Private
+              <Lock size={11} /> {project.private ? "Private" : "Login required"}
             </span>
           )}
         </div>
