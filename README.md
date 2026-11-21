@@ -74,6 +74,8 @@ This renders the phones on a transparent background, so the card's own backdrop 
 
 **Turning a raw screenshot into a frame**: `node scripts/import-screens.mjs <src.png> <dest.webp> [topCropPx] [bottomCropPx]`. Use the crop values to cut off browser tabs and bars.
 
+**Cutting one section out of a full-page screenshot**: `node scripts/crop-section.mjs <src.png> <dest.webp> <top> <height>`. This saves a 16:10 frame, and pads short sections with the page's own background colour.
+
 > If an updated image still shows the old version locally, delete the `.next` folder and restart (the image optimizer caches by file name).
 
 ## Deploy to Vercel
