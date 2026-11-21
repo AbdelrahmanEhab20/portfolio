@@ -299,15 +299,20 @@ export const projects: Project[] = [
     status: "Live",
     categories: ["SaaS", "AI", "Web"],
     overview:
-      "A browser-based AI meeting assistant that captures meeting audio from any platform, transcribes it live and turns it into summaries, action items and decisions — without a bot joining the call. I configured its services and environments for go-live.",
-    whatIDid: ["Configured services, accounts and environments for launch."],
+      "A browser-based AI meeting assistant that captures meeting audio from any platform, transcribes it live and turns it into summaries, action items and decisions — without a bot joining the call. I built it as a SaaS product for the company on Base44, then created a standalone version that can be sold as a custom solution to any company.",
+    whatIDid: [
+      "Configured the backend data, logic and third-party integrations on Base44 to ship it as a SaaS product.",
+      "Refined the UI and fixed details manually after each testing phase.",
+      "Built a standalone custom version with its own frontend and backend: frontend on Vercel, backend on Render, data in MongoDB.",
+      "Prepared services, accounts and environments for launch.",
+    ],
     features: [
       "Works with Zoom, Google Meet, Teams and others",
       "Live transcription",
       "Summaries, owned action items and logged decisions",
       "Multiple inputs: recordings, files, video links, images, text",
     ],
-    stack: ["TODO: confirm stack"],
+    stack: ["Base44", "React", "Node.js", "MongoDB", "Vercel", "Render"],
     links: [{ label: "Website", url: "https://siloainotes.com/", kind: "live" }],
     autoScreenshot: [
       { url: "https://siloainotes.com/", file: "cover" },
@@ -495,15 +500,19 @@ export const projects: Project[] = [
     tagline: "Mobile app + hardware device for indoor navigation",
     year: "2021",
     sortDate: "2021-06",
-    role: "Developer",
+    role: "Mobile Developer (team project)",
     type: "Graduation project",
     status: "Completed",
     categories: ["Mobile"],
     overview:
-      "El Shorouk Academy graduation project: a mobile app paired with a hardware device that determines a user's indoor location and guides them to their destination.",
-    whatIDid: ["TODO: describe your part"],
+      "El Shorouk Academy graduation project: a mobile app paired with a hardware device that determines a user's indoor location and guides them to their destination. We built and tested it on a real floor of our college and demoed it live on graduation discussion day.",
+    whatIDid: [
+      "Built the Flutter mobile app.",
+      "Collected and monitored the positioning data across the college floor used to locate users.",
+      "Tested the system live during the graduation project discussion.",
+    ],
     features: ["Indoor positioning", "Turn-by-turn guidance to a destination"],
-    stack: ["TODO"],
+    stack: ["Flutter", "Dart", "Indoor positioning hardware"],
     links: [],
   },
 ];
