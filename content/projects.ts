@@ -15,6 +15,7 @@ export type ScreenshotShot = {
   file: string; // "cover", "02", "m01" ... (saved as .webp)
   theme?: "dark" | "light"; // emulated prefers-color-scheme
   mobile?: boolean; // 390x844 phone instead of 1440x900 desktop
+  selector?: string; // scroll this element (e.g. "#pricing") to the top before capturing
 };
 
 export type Project = {
@@ -202,7 +203,13 @@ export const projects: Project[] = [
     ],
     stack: ["React", "Firebase Hosting"], // TODO: confirm exact stack
     links: [{ label: "Live site", url: "https://marpylon.com/", kind: "live" }],
-    autoScreenshot: ["https://marpylon.com/"],
+    autoScreenshot: [
+      { url: "https://marpylon.com/", file: "cover" },
+      { url: "https://marpylon.com/", file: "m01", mobile: true },
+      // 01-03 are cropped from manual screenshots (company profile, exotic materials, projects).
+      { url: "https://marpylon.com/en/products", file: "04" },
+      { url: "https://marpylon.com/en/products/silver-root", file: "05" },
+    ],
   },
   {
     slug: "flickit",
@@ -237,7 +244,13 @@ export const projects: Project[] = [
       { label: "Website", url: "https://flickit.me/", kind: "live" },
       { label: "Teams portal", url: "https://teams.flickit.me/", kind: "live" },
     ],
-    autoScreenshot: ["https://flickit.me/", "https://teams.flickit.me/"],
+    autoScreenshot: [
+      { url: "https://flickit.me/", file: "cover" },
+      { url: "https://teams.flickit.me/", file: "01" },
+      { url: "https://flickit.me/", file: "02", selector: "#keyFeatures" },
+      { url: "https://flickit.me/downloadflickit", file: "03" },
+      { url: "https://flickit.me/", file: "m01", mobile: true },
+    ],
   },
   {
     slug: "govflow",
@@ -264,7 +277,15 @@ export const projects: Project[] = [
       { label: "System (beta)", url: "https://test-govflow-beta.vercel.app/login", kind: "live" },
       { label: "Demo videos", url: "https://drive.google.com/drive/folders/1oU_BFN3aGtpexI1FUY5M6dYphtD73Xs_?usp=sharing", kind: "demo" },
     ],
-    autoScreenshot: ["https://mygovflow.com/", "https://test-govflow-beta.vercel.app/login"],
+    autoScreenshot: [
+      { url: "https://mygovflow.com/", file: "cover" },
+      { url: "https://test-govflow-beta.vercel.app/login", file: "01" },
+      { url: "https://mygovflow.com/", file: "02", selector: "#features" },
+      { url: "https://mygovflow.com/", file: "03", selector: "#benefits" },
+      { url: "https://mygovflow.com/", file: "04", selector: "#security" },
+      { url: "https://mygovflow.com/", file: "m01", mobile: true },
+      { url: "https://mygovflow.com/", file: "m02", mobile: true, selector: "#features" },
+    ],
   },
   {
     slug: "silo-ai-notes",
@@ -288,7 +309,15 @@ export const projects: Project[] = [
     ],
     stack: ["TODO: confirm stack"],
     links: [{ label: "Website", url: "https://siloainotes.com/", kind: "live" }],
-    autoScreenshot: ["https://siloainotes.com/"],
+    autoScreenshot: [
+      { url: "https://siloainotes.com/", file: "cover" },
+      { url: "https://siloainotes.com/", file: "01", selector: "#how" },
+      { url: "https://siloainotes.com/", file: "02", selector: "#capture" },
+      { url: "https://siloainotes.com/", file: "03", selector: "#pricing" },
+      { url: "https://siloainotes.com/AboutSilo", file: "04" },
+      { url: "https://siloainotes.com/playground", file: "05" },
+      { url: "https://siloainotes.com/", file: "m01", mobile: true },
+    ],
   },
   {
     slug: "sabil-elmoslem",
@@ -336,7 +365,14 @@ export const projects: Project[] = [
     features: ["Product categories and collections", "Arabic storefront", "Salla checkout"],
     stack: ["Salla", "HTML", "CSS", "JavaScript"],
     links: [{ label: "Live site", url: "https://iconfurniture-sa.com/", kind: "live" }],
-    autoScreenshot: ["https://iconfurniture-sa.com/"],
+    autoScreenshot: [
+      { url: "https://iconfurniture-sa.com/", file: "cover" },
+      { url: "https://iconfurniture-sa.com/", file: "m01", mobile: true },
+      { url: "https://iconfurniture-sa.com/ar/%D9%83%D8%B1%D8%B3%D9%8A-%D8%A7%D8%B3%D8%AA%D8%B1%D8%AE%D8%A7%D8%A1/c567115825", file: "01" }, // lounge chairs category
+      { url: "https://iconfurniture-sa.com/ar/%D9%88%D8%AD%D8%AF%D9%87-%D8%B9%D9%85%D9%84-%D8%AF%D9%8A%D9%83%D9%88%D8%B1%D9%8A%D9%87/p1604820902", file: "02" }, // product page
+      { url: "https://iconfurniture-sa.com/ar/offers", file: "03" },
+      { url: "https://iconfurniture-sa.com/ar/%D9%88%D8%AD%D8%AF%D9%87-%D8%B9%D9%85%D9%84-%D8%AF%D9%8A%D9%83%D9%88%D8%B1%D9%8A%D9%87/p1604820902", file: "m02", mobile: true },
+    ],
   },
   {
     slug: "tbh-admin",

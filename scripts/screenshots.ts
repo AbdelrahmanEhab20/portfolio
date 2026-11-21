@@ -8,7 +8,7 @@
  * For each project with `autoScreenshot` URLs:
  *   URL 1 -> cover.webp (1440x900 @2x) and m01.webp (390x844 @3x)
  *   URL 2 -> 01.webp, URL 3 -> 02.webp, ...
- * Object entries ({ url, file, theme?, mobile? }) capture exactly that file instead,
+ * Object entries ({ url, file, theme?, mobile?, selector? }) capture exactly that file instead,
  * e.g. cover in dark theme and 02 in light theme.
  * Existing files are never overwritten without --force, so manual screenshots are safe.
  */
@@ -60,6 +60,7 @@ async function capture(
   dest: string,
   device: { width: number; height: number; scale: number; mobile?: boolean },
   colorScheme?: "dark" | "light",
+  selector?: string,
 ) {
   if (fs.existsSync(dest) && !force) {
     console.log(`  skip  ${path.relative(process.cwd(), dest)} (exists)`);
@@ -90,6 +91,15 @@ async function capture(
       }
       window.scrollTo(0, 0);
     });
+    // Optionally capture a section further down instead of the top of the page.
+    if (selector) {
+      const found = await page.evaluate((sel) => {
+        const el = document.querySelector(sel);
+        el?.scrollIntoView({ block: "start" });
+        return !!el;
+      }, selector);
+      if (!found) console.warn(`  WARN  ${url}: selector ${selector} not found, capturing the top`);
+    }
     await page.waitForTimeout(1200);
     let png = await page.screenshot({ type: "png" });
     // A near-uniform image means the page hadn't painted yet: wait and retry once.
@@ -127,7 +137,7 @@ async function main() {
       if (shots.length > 0) {
         for (const s of shots) {
           const device = s.mobile ? mobile : desktop;
-          await capture(browser, s.url, path.join(dir, `${s.file}.webp`), device, s.theme);
+          await capture(browser, s.url, path.join(dir, `${s.file}.webp`), device, s.theme, s.selector);
         }
         continue;
       }
