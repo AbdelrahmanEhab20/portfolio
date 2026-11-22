@@ -6,7 +6,8 @@ import { AnimatePresence, motion, type PanInfo } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { PhoneFrame } from "./phone-frame";
 
-export type Shot = { src: string; mobile: boolean; alt: string };
+// framed: mobile shots go inside a phone frame unless false (store graphics that already show a phone).
+export type Shot = { src: string; mobile: boolean; framed?: boolean; alt: string };
 
 // Same `sizes` everywhere a shot is rendered in the viewer, so the preloaded
 // neighbours request exactly the file the slide will show (no flash).
@@ -220,6 +221,21 @@ export function Lightbox({
 }
 
 function Slide({ shot, phoneWidth, priority }: { shot: Shot; phoneWidth: number; priority?: boolean }) {
+  if (shot.mobile && shot.framed === false) {
+    return (
+      <div className="relative aspect-[921/2000] h-full max-w-full overflow-hidden rounded-[1.6rem]">
+        <Image
+          src={shot.src}
+          alt={shot.alt}
+          fill
+          sizes={SIZES.mobile}
+          draggable={false}
+          {...(priority ? { loading: "eager" as const } : {})}
+          className="object-contain"
+        />
+      </div>
+    );
+  }
   if (shot.mobile) {
     // The viewer is always dark, so pin the phone bezel to the dark-theme tokens
     // (the [data-theme="dark"] block in globals.css re-scopes them to this subtree).

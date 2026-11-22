@@ -6,11 +6,14 @@ import { useCallback, useRef, useState } from "react";
 import { PhoneFrame } from "./phone-frame";
 import { Lightbox, type Shot } from "./lightbox";
 
-export function Gallery({ title, desktop, mobile }: { title: string; desktop: string[]; mobile: string[] }) {
-  // One sequence: desktop shots first, then mobile ones (shown in a phone frame).
+export type MobileShot = { src: string; framed: boolean };
+
+export function Gallery({ title, desktop, mobile }: { title: string; desktop: string[]; mobile: MobileShot[] }) {
+  // One sequence: desktop shots first, then mobile ones (in a phone frame unless `framed` is false,
+  // e.g. store graphics that already show a phone).
   const shots: Shot[] = [
-    ...desktop.map((src, i) => ({ src, mobile: false, alt: `${title} screenshot ${i + 1}` })),
-    ...mobile.map((src, i) => ({ src, mobile: true, alt: `${title} mobile screenshot ${i + 1}` })),
+    ...desktop.map((src, i) => ({ src, mobile: false, framed: false, alt: `${title} screenshot ${i + 1}` })),
+    ...mobile.map((m, i) => ({ src: m.src, mobile: true, framed: m.framed, alt: `${title} mobile screenshot ${i + 1}` })),
   ];
   const [index, setIndex] = useState<number | null>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
@@ -48,12 +51,18 @@ export function Gallery({ title, desktop, mobile }: { title: string; desktop: st
 
       {mobile.length > 0 && (
         <ul className="mt-6 flex flex-wrap justify-center gap-6 sm:justify-start">
-          {mobile.map((src, i) => (
+          {mobile.map(({ src, framed }, i) => (
             <li key={src}>
               <button type="button" onClick={() => open(desktop.length + i)} aria-label={`Open mobile screenshot ${i + 1} of ${title}`} className="group block">
-                <PhoneFrame>
-                  <Image src={src} alt={`${title} mobile screenshot ${i + 1}`} fill sizes="200px" className="object-cover object-top" />
-                </PhoneFrame>
+                {framed ? (
+                  <PhoneFrame>
+                    <Image src={src} alt={`${title} mobile screenshot ${i + 1}`} fill sizes="200px" className="object-cover object-top" />
+                  </PhoneFrame>
+                ) : (
+                  <span className="relative block aspect-[921/2000] w-[180px] overflow-hidden rounded-[1.4rem] border border-line bg-surface-2 shadow-[0_30px_60px_-30px_var(--glow)] transition-transform duration-300 group-hover:-translate-y-1 sm:w-[200px]">
+                    <Image src={src} alt={`${title} mobile screenshot ${i + 1}`} fill sizes="200px" className="object-cover" />
+                  </span>
+                )}
               </button>
             </li>
           ))}

@@ -53,6 +53,8 @@ Put files in `public/projects/<slug>/`:
 
 If there is no `cover.webp`, the first numbered image is used.
 
+**Store graphics** (portrait images that already include a headline and a phone) shouldn't get a second phone frame. List them in the project's `unframed` field (e.g. `unframed: ["m02", "m03"]`) and they show as-is in the gallery and the viewer.
+
 **Automatic captures from live sites**:
 
 ```bash

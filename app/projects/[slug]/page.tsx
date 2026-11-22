@@ -52,6 +52,8 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
   const next = sortedProjects[i + 1];
   const img = getProjectImages(p.slug);
   const gallery = img.desktop.filter((s) => s !== img.cover);
+  const baseName = (src: string) => src.split("/").pop()!.replace(/\.[^.]+$/, "");
+  const mobileShots = img.mobile.map((src) => ({ src, framed: !p.unframed?.includes(baseName(src)) }));
 
   const meta = [
     { k: "Year", v: p.year },
@@ -169,7 +171,7 @@ async function ProjectContent({ params }: { params: Promise<{ slug: string }> })
       {(gallery.length > 0 || img.mobile.length > 0) && (
         <Reveal className="mt-20">
           <h2 className="mb-6 text-2xl font-semibold tracking-tight">Gallery</h2>
-          <Gallery title={p.title} desktop={gallery} mobile={img.mobile} />
+          <Gallery title={p.title} desktop={gallery} mobile={mobileShots} />
         </Reveal>
       )}
 

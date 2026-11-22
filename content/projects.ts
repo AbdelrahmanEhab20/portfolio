@@ -43,6 +43,9 @@ export type Project = {
   // Plain URLs: first -> cover + m01, the rest -> 01, 02...  Objects: exact file name, theme and device.
   autoScreenshot?: (string | ScreenshotShot)[];
   mobile?: boolean; // show mobile screenshots in a phone frame
+  // Mobile files shown as-is, without our phone frame (e.g. store graphics that already
+  // include a headline and a phone), by base name: ["m02", "m03"].
+  unframed?: string[];
 };
 
 export const profile = {
@@ -232,25 +235,36 @@ export const projects: Project[] = [
       "Applied database normalization and backup strategies to improve performance and reduce costs.",
       "Lead the Flutter app: package upgrades, memory and secret-leak fixes, deprecated API migration.",
       "Integrated third-party email services; manage repos and PR reviews.",
+      "Redesigning the Flutter mobile app page by page: home, NFC tap, contacts, virtual spaces and insights.",
+      "Planning and shipping new features continuously.",
+      "Own mobile releases: a new build for every feature through Google Play internal testing and iOS TestFlight before publishing to production.",
     ],
     features: [
       "QR code sharing (works offline)",
       "In-app contact exchange and lead capture",
       "Apple Wallet and Google Wallet cards",
       "Teams admin portal",
+      "NFC tap to share",
+      "Virtual networking spaces",
+      "Insights: views, clicks and saved contacts",
     ],
     stack: ["Flutter", "React", "Next.js", "Firebase", "Firestore", "Cloud Functions", "Node.js"],
     links: [
       { label: "Website", url: "https://flickit.me/", kind: "live" },
       { label: "Teams portal", url: "https://teams.flickit.me/", kind: "live" },
+      { label: "App Store", url: "https://apps.apple.com/us/app/flickit-digital-business-card/id1668375552", kind: "other" },
+      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=me.flickit", kind: "other" },
     ],
+    // cover.webp is a composed store-graphics cover (tap to connect + insights), not a capture.
     autoScreenshot: [
-      { url: "https://flickit.me/", file: "cover" },
-      { url: "https://teams.flickit.me/", file: "01" },
-      { url: "https://flickit.me/", file: "02", selector: "#keyFeatures" },
-      { url: "https://flickit.me/downloadflickit", file: "03" },
+      { url: "https://flickit.me/", file: "01" },
+      { url: "https://teams.flickit.me/", file: "02" },
+      { url: "https://flickit.me/", file: "03", selector: "#keyFeatures" },
+      { url: "https://flickit.me/downloadflickit", file: "04" },
       { url: "https://flickit.me/", file: "m01", mobile: true },
     ],
+    // m02–m05 are App Store graphics that already include a headline and a phone.
+    unframed: ["m02", "m03", "m04", "m05"],
   },
   {
     slug: "govflow",
